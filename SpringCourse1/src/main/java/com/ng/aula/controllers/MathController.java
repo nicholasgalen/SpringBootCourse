@@ -1,5 +1,6 @@
 package com.ng.aula.controllers;
 
+import com.ng.aula.exception.UnsuportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,13 +14,13 @@ public class MathController {
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new IllegalArgumentException();
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
         return convertToDouble(num1) + convertToDouble(num2);
     }
 
     private Double convertToDouble(String strNum) {
         // Mesma validação do isNumeric
-        if (strNum == null || strNum.isEmpty()) throw new IllegalArgumentException();
+        if (strNum == null || strNum.isEmpty()) throw new UnsuportedMathOperationException("Please set a numeric value.");
         String number = strNum.replace(",", ".");
 
         return Double.parseDouble(number);
