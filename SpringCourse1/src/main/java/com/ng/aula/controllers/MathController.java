@@ -38,6 +38,52 @@ public class MathController {
 
 
     // math/subtraction
+    @RequestMapping("/subtraction/{num1}/{num2}")
+    public Double subtraction(
+            @PathVariable("num1") String num1,
+            @PathVariable("num2") String num2
+    ) throws Exception{
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return convertToDouble(num1) - convertToDouble(num2);
+    }
+
+
     // math/division
+    @RequestMapping("/division/{num1}/{num2}")
+    public Double division(
+            @PathVariable("num1") String num1,
+            @PathVariable("num2") String num2
+    ) throws Exception{
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return convertToDouble(num1) / convertToDouble(num2);
+    }
+
     // math/multiplication
+    @RequestMapping("/multiplication/{num1}/{num2}")
+    public Double multiplication(
+            @PathVariable("num1") String num1,
+            @PathVariable("num2") String num2
+    ) throws Exception{
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return convertToDouble(num1) * convertToDouble(num2);
+    }
+
+    // math/mean
+    @RequestMapping("/mean/{num1}/{num2}")
+    public Double mean(
+            @PathVariable("num1") String num1,
+            @PathVariable("num2") String num2
+    ) throws Exception{
+        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return (convertToDouble(num1) + convertToDouble(num2)) / 2;
+    }
+
+    // math/square
+    @RequestMapping("/square/{num1}")
+    public Double square(
+            @PathVariable("num1") String num1
+    ) throws Exception{
+        if (!isNumeric(num1)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return (convertToDouble(num1) * convertToDouble(num1));
+    }
 }
