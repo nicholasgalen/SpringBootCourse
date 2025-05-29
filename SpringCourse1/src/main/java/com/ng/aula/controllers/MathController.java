@@ -1,6 +1,8 @@
 package com.ng.aula.controllers;
 
 import com.ng.aula.exception.UnsuportedMathOperationException;
+import com.ng.aula.math.SimpleMath;
+import com.ng.aula.request.converters.NumberConverter;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,34 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/math") // aplica em todos os componentes dentro do math controller
 public class MathController {
+
+    // bad & confusing code structure, use DI and other strategies to make it cleaner
+    private SimpleMath math = new SimpleMath();
+
     // math/sum
     @RequestMapping("/sum/{num1}/{num2}")
     public Double sum(
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return convertToDouble(num1) + convertToDouble(num2);
+        if (!NumberConverter.isNumeric(num1) || !NumberConverter.isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.sum(NumberConverter.convertToDouble(num1), NumberConverter.convertToDouble(num2));
     }
-
-    private Double convertToDouble(String strNum) {
-        // Mesma validação do isNumeric
-        if (strNum == null || strNum.isEmpty()) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        String number = strNum.replace(",", ".");
-
-        return Double.parseDouble(number);
-    }
-
-    private boolean isNumeric(String strNum) {
-        // Verifica se o numero é null ou empty
-        if (strNum == null || strNum.isEmpty()) return false;
-
-        // Substitui a virgula por ponto (no brasil usa-se virgula para dinheiro ou decilmal
-        // eg. R$ 3,54 enquanto a convenção é ponto, eg. USD 3.54
-        String number = strNum.replace(",", ".");
-        return (number.matches("[-+]?[0-9]*\\.?[0-9]+"));
-    }
-
 
     // math/subtraction
     @RequestMapping("/subtraction/{num1}/{num2}")
@@ -43,8 +30,8 @@ public class MathController {
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return convertToDouble(num1) - convertToDouble(num2);
+        if (!NumberConverter.isNumeric(num1) || !NumberConverter.isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.subtraction(NumberConverter.convertToDouble(num1), NumberConverter.convertToDouble(num2));
     }
 
 
@@ -54,8 +41,8 @@ public class MathController {
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return convertToDouble(num1) / convertToDouble(num2);
+        if (!NumberConverter.isNumeric(num1) || !NumberConverter.isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.division(NumberConverter.convertToDouble(num1), NumberConverter.convertToDouble(num2));
     }
 
     // math/multiplication
@@ -64,8 +51,8 @@ public class MathController {
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return convertToDouble(num1) * convertToDouble(num2);
+        if (!NumberConverter.isNumeric(num1) || !NumberConverter.isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.multiplication(NumberConverter.convertToDouble(num1), NumberConverter.convertToDouble(num2));
     }
 
     // math/mean
@@ -74,16 +61,16 @@ public class MathController {
             @PathVariable("num1") String num1,
             @PathVariable("num2") String num2
     ) throws Exception{
-        if (!isNumeric(num1) || !isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return (convertToDouble(num1) + convertToDouble(num2)) / 2;
+        if (!NumberConverter.isNumeric(num1) || !NumberConverter.isNumeric(num2)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.mean(NumberConverter.convertToDouble(num1), NumberConverter.convertToDouble(num2));
     }
 
     // math/square
-    @RequestMapping("/square/{num1}")
+    @RequestMapping("/squareroot/{num1}")
     public Double square(
             @PathVariable("num1") String num1
     ) throws Exception{
-        if (!isNumeric(num1)) throw new UnsuportedMathOperationException("Please set a numeric value.");
-        return (convertToDouble(num1) * convertToDouble(num1));
+        if (!NumberConverter.isNumeric(num1)) throw new UnsuportedMathOperationException("Please set a numeric value.");
+        return math.squareroot(NumberConverter.convertToDouble(num1));
     }
 }
