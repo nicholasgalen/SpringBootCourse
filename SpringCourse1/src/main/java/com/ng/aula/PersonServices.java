@@ -1,0 +1,27 @@
+package com.ng.aula;
+
+import com.ng.aula.model.Person;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.Logger;
+
+@Service // Serviço para ficar disponivel e ser injetado aonde for preciso (tipo RestController)
+public class PersonServices {
+    private final AtomicLong counter = new AtomicLong();
+    private Logger logger = Logger.getLogger(PersonServices.class.getName()); // loggers são bons para mostrar:
+    // Informações, Erros, Avisos e Depuração da API via logs, bom para DEBUG.
+
+    public Person findById(String id){
+        logger.info("Finding one Person.");
+
+        // mock test
+        Person person = new Person();
+        person.setId(counter.incrementAndGet());
+        person.setFirstName("Nicholas");
+        person.setLastName("Galen");
+        person.setAddress("Waterloo - Ontario - Canadá");
+        person.setGender('M');
+        return person;
+    }
+}
