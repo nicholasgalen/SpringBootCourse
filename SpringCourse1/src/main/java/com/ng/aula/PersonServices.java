@@ -3,6 +3,8 @@ package com.ng.aula;
 import com.ng.aula.model.Person;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -12,6 +14,18 @@ public class PersonServices {
     private Logger logger = Logger.getLogger(PersonServices.class.getName()); // loggers são bons para mostrar:
     // Informações, Erros, Avisos e Depuração da API via logs, bom para DEBUG.
 
+    public List<Person> findAll(){
+        List<Person> persons = new ArrayList<Person>();
+
+        // list mock!
+        for (int i = 0; i < 8; i++){
+            Person person = mockPerson(i);
+            persons.add(person);
+        }
+
+        return persons;
+    }
+
     public Person findById(String id){
         logger.info("Finding one Person.");
 
@@ -20,6 +34,17 @@ public class PersonServices {
         person.setId(counter.incrementAndGet());
         person.setFirstName("Nicholas");
         person.setLastName("Galen");
+        person.setAddress("Waterloo - Ontario - Canadá");
+        person.setGender('M');
+        return person;
+    }
+
+    // mocker!
+    private Person mockPerson(int i){
+        Person person = new Person();
+        person.setId(counter.incrementAndGet());
+        person.setFirstName("Person " + i);
+        person.setLastName("Lastname " + i);
         person.setAddress("Waterloo - Ontario - Canadá");
         person.setGender('M');
         return person;
