@@ -4,10 +4,7 @@ import com.ng.aula.PersonServices;
 import com.ng.aula.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,35 @@ public class PersonController {
     )
     public Person findById(@PathVariable("id") String id){
         return service.findById(id);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST, // é bom porque garante que apenas requisições POST são aceitas nesse endpoint
+            produces = MediaType.APPLICATION_JSON_VALUE, // apenas especifica que esse endpoint retorna JSON
+            consumes = MediaType.APPLICATION_JSON_VALUE // apenas especifica que esse endpoint CONSOME JSON
+            // eles não são nescessarios para funcionar, mas são bons para criar documentação via SWAGGER depois
+    )
+    // precisamos usar o RequestBody para receber os valores retornados pelo body do json
+    // caso contrario, o POST vai retornar TUDO null
+    // O RequestBody basicamente pede para o Java converter o JSON para um objeto JAVA (person nesse caso)
+    public Person create(@RequestBody Person person){
+        return service.create(person);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Person update(@RequestBody Person person){
+        return service.update(person);
+    }
+
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.DELETE
+            // não tem media tipe pois não consome nem escreve JSON nem nada do tipo!
+    )
+    public void delete(@PathVariable("id") String id){
+        service.delete(id);
     }
 }

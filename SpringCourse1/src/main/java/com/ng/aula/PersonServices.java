@@ -39,8 +39,24 @@ public class PersonServices {
         return person;
     }
 
+    public Person create(Person person){
+        logger.info("Creating Person.");
+        return person;
+    }
+
+    public Person update(Person person){
+        logger.info("Updating Person.");
+        return person;
+    }
+
+    public void delete(String id){ // DELETE pode ser void, já que não precisa retornar nada, só a deleção do objeto
+        logger.info("Deleting Person.");
+    }
+
     // mocker!
     private Person mockPerson(int i){
+        logger.info("Finding all Persons.");
+
         Person person = new Person();
         person.setId(counter.incrementAndGet());
         person.setFirstName("Person " + i);
