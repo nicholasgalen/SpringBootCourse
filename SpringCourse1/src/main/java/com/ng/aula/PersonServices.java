@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 
 @Service // Serviço para ficar disponivel e ser injetado aonde for preciso (tipo RestController)
 public class PersonServices {
-    private final AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong(); // AtomicLong é uma classe do pacote java.util.concurrent.atomic
+    // usada para operações seguras em múltiplas threads com variáveis do tipo long. Começa em 0 (padrão).
+    // Pode ser acessado e modificado de forma segura em ambientes concorrentes, sem a necessidade de usar synchronized ou locks.
     private Logger logger = Logger.getLogger(PersonServices.class.getName()); // loggers são bons para mostrar:
     // Informações, Erros, Avisos e Depuração da API via logs, bom para DEBUG.
 
