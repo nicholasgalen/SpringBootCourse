@@ -27,7 +27,7 @@ public class PersonController {
             method = RequestMethod.GET, // é bom porque garante que apenas requisições GET são aceitas nesse endpoint
             produces = MediaType.APPLICATION_JSON_VALUE // apenas especifica que esse endpoint retorna JSON
     )
-    public Person findById(@PathVariable("id") String id){
+    public Person findById(@PathVariable("id") Long id){
         return service.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class PersonController {
             method = RequestMethod.DELETE
             // não tem media tipe pois não consome nem escreve JSON nem nada do tipo!
     )
-    public void delete(@PathVariable("id") String id){
+    public void delete(@PathVariable("id") Long id){
         service.delete(id);
     }
 }

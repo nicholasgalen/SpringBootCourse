@@ -1,6 +1,7 @@
 package com.ng.aula.exception.handler;
 
 import com.ng.aula.exception.ExceptionResponse;
+import com.ng.aula.exception.ResourseNotFoundException;
 import com.ng.aula.exception.UnsuportedMathOperationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,15 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         // Porém no meu caso (localhost) retorna meu IP de maquina, não meu IP real.
 
         // Retorna o json response e o status http (nesse caso 400 bad request)
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourseNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(Exception ex, WebRequest request){
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(true));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
