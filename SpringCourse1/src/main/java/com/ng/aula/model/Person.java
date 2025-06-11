@@ -4,8 +4,14 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.*;
+
 // Nesse caso não usamos record porque iremos fazer
 // POST, enquanto records só permitem GET
+@Entity // Declara pelo JPA e o jakarta que isso é uma entidade (modelo) e portanto terá atributos do mesmo e sera usada assim
+// (da mesma forma que declaramos RestController etc)
+@Table(name = "person") // Aqui declaramos que essa entity é uma tabela, o name declara o nome da tabela (se deixar vazio
+// o nome vai ser igual o nome da classe "Person" nesse caso.
 public class Person implements Serializable {
 
     // @Serial identifica o ID de versão para serialização.
@@ -14,10 +20,22 @@ public class Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Aqui ele declara que Long id é um ID e que vai ser gerado
+    // como IDENTITY (ou seja, que incrementa de 1 a 1)
     private Long id;
+
+    @Column(name = "first_name", nullable = false, length = 80) // aqui declara firstName como uma coluna de nome first_name,
+    // que não pode ser nula e tem um tamanho maximo de 80
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
+
+    @Column(nullable = false, length = 100)
     private String address;
+
+    @Column(nullable = false, length = 1)
     private Character gender;
 
     public Person() {

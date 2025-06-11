@@ -1,4 +1,4 @@
-package com.ng.aula;
+package com.ng.aula.services;
 
 import com.ng.aula.model.Person;
 import org.springframework.stereotype.Service;

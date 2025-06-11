@@ -1,6 +1,6 @@
 package com.ng.aula.controllers;
 
-import com.ng.aula.PersonServices;
+import com.ng.aula.services.PersonServices;
 import com.ng.aula.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,1 +1,23 @@
-spring.application.name=aula
+spring:
+  application:
+    name: aula  # Nome da aplicação, útil para logs, monitoramento, e identificação em ambientes distribuídos.
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # Driver JDBC do MySQL (necessário para conexão com o banco).
+    url: jdbc:mysql://localhost:3306/spring_course1?useTimezone=true&serverTimezone=UTC
+      # URL de conexão com o banco de dados MySQL.
+      # - localhost: máquina local
+      # - 3306: porta padrão do MySQL
+      # - spring_course1: nome do banco
+    # - useTimezone & serverTimezone: garantem que o timezone esteja configurado corretamente
+    username: root  # Usuário do banco de dados
+    password: Csd@2005  # Senha do banco de dados
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Atualiza o schema do banco conforme as entidades (sem apagar dados)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        # Dialeto do Hibernate para traduzir as instruções JPA para SQL específico do MySQL 8.
+    show-sql: false  # Define se as queries SQL geradas pelo Hibernate serão exibidas no console (false = não exibe)
