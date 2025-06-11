@@ -18,6 +18,10 @@ spring:
       ddl-auto: update  # Atualiza o schema do banco conforme as entidades (sem apagar dados)
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        # dialect: org.hibernate.dialect.MySQL8Dialect - Não precisa especificar diretamente o Dialect nas versões mais
+      # modernas, o proprio hibernate já faz isso. PORÉM, não pode remover o hibernate: ou teremos um erro
         # Dialeto do Hibernate para traduzir as instruções JPA para SQL específico do MySQL 8.
     show-sql: false  # Define se as queries SQL geradas pelo Hibernate serão exibidas no console (false = não exibe)
+    open-in-view: false # Impede que a sessão do Hibernate fique aberta até o final da requisição (view rendering).
+      # Ajuda a evitar problemas com queries inesperadas durante a serialização (lazy loading).
+    # Recomendado deixar como false em APIs REST para maior controle e performance.
