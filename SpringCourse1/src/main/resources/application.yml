@@ -25,3 +25,7 @@ spring:
     open-in-view: false # Impede que a sessão do Hibernate fique aberta até o final da requisição (view rendering).
       # Ajuda a evitar problemas com queries inesperadas durante a serialização (lazy loading).
     # Recomendado deixar como false em APIs REST para maior controle e performance.
+logging:
+  level:
+    root: INFO
+    com.ng.aula: DEBUG

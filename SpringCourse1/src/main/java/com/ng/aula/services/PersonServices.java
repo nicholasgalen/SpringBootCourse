@@ -3,6 +3,8 @@ package com.ng.aula.services;
 import com.ng.aula.exception.ResourseNotFoundException;
 import com.ng.aula.model.Person;
 import com.ng.aula.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 @Service // Serviço para ficar disponivel e ser injetado aonde for preciso (tipo RestController)
 public class PersonServices {
     private final AtomicLong counter = new AtomicLong(); // AtomicLong é uma classe do pacote java.util.concurrent.atomic
     // usada para operações seguras em múltiplas threads com variáveis do tipo long. Começa em 0 (padrão).
     // Pode ser acessado e modificado de forma segura em ambientes concorrentes, sem a necessidade de usar synchronized ou locks.
-    private Logger logger = Logger.getLogger(PersonServices.class.getName()); // loggers são bons para mostrar:
+    private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName()); // loggers são bons para mostrar:
     // Informações, Erros, Avisos e Depuração da API via logs, bom para DEBUG.
 
     // Usando DI com nosso Repository
